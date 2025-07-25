@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UTOPIA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #fff;
+      --bg: #000;
+      --box: #101010;
+      --section: 39px;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      background: var(--bg);
+      color: var(--accent);
+      font-family: 'Rajdhani', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      letter-spacing: .01em;
+      overflow-x: hidden;
+    }
+    nav {
+      background: rgba(0,0,0,0.97);
+      padding: 1.1em 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #fff2;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 30px #fff1;
+    }
+    nav a {
+      color: #fff !important;
+      font-family: 'Orbitron', 'Rajdhani', Arial, sans-serif;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      display: inline-block;
+      letter-spacing: 0.12em;
+      transition: background 0.17s, color 0.17s;
+      text-shadow: 0 0 6px #fff6;
+      position: relative;
+    }
+    nav a:hover, nav a.active {
+      background: #fff;
+      color: #000 !important;
+      box-shadow: 0 0 19px #fff9;
+      text-shadow: none;
+    }
+    
+    /* --- HERO STYLES FOR PARALLAX EFFECT --- */
+    header.hero-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw; 
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+      opacity: 0.25;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1; 
+    }
+    
+    main {
+      margin-top: 100vh; 
+      position: relative; 
+      background: var(--bg); 
+      z-index: 1;
+      padding-bottom: 3rem;
+    }
+    /* --- END OF HERO STYLES --- */
+
+    .main-title {
+      font-family: 'Orbitron', 'Rajdhani', Arial, sans-serif;
+      font-weight: 900;
+      font-size: clamp(4.3rem,13vw,8rem);
+      letter-spacing: 0.21em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin: 0 0 .13em 0;
+      text-shadow: 0 0 70px #fff, 0 0 35px #fff4;
+      line-height: 0.99;
+      background: linear-gradient(90deg, #fff, #eee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1.27rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      opacity: 0.97;
+      margin-bottom: 1.4em;
+      margin-top: 0.28em;
+      text-shadow: 0 0 12px #fff6;
+      text-align: center;
+    }
+    #countdown-timer {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.18rem;
+      font-weight: 900;
+      background: #161616;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #fff;
+      display: inline-block;
+      margin-bottom: 2.0rem;
+      padding: 1.1rem 2.2rem;
+      letter-spacing: .06em;
+      box-shadow: 0 1px 16px #fff3;
+      text-align: center;
+    }
+
+    section {
+      background: var(--box);
+      max-width: 890px;
+      margin: var(--section) auto;
+      border-radius: var(--radius);
+      box-shadow: 0 0 32px #fff1;
+      padding: 2.6rem 2.2rem;
+      border: 1.2px solid #fff1;
+      position: relative;
+      text-align: center;
+    }
+    h2, h3 {
+      font-family: 'Orbitron', 'Rajdhani', Arial, sans-serif;
+      text-align: center;
+      font-weight: 900;
+    }
+    h2 {
+      font-size: 2.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.17em;
+      margin-top: 0;
+      margin-bottom: .65em;
+      color: #fff;
+      text-shadow: 0 0 20px #fff7;
+    }
+    h3 {
+      font-size: 1.22rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      color: #fff;
+      margin: 1em 0 0.55em 0;
+      text-shadow: 0 0 7px #fff3;
+    }
+    ul, ol {
+      padding-left: 1.5em;
+      margin-bottom: 1.3em;
+      margin-top: 0.7em;
+      text-align: left;
+      display: inline-block;
+    }
+    li { margin-bottom: .5em; }
+    .highlight {
+      background: #191919;
+      border-radius: .7em;
+      padding: .39em 1.1em;
+      display: inline-block;
+      margin: 1em 0;
+      box-shadow: 0 0 10px #fff2;
+      font-weight: 900;
+      font-family: 'Orbitron', 'Rajdhani', Arial, sans-serif;
+      letter-spacing: .07em;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 1em;
+    }
+    
+    /* --- Artist Styles --- */
+    .artist-container {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+        margin-top: 2rem;
+        flex-wrap: wrap; 
+    }
+    .artist-profile {
+        flex: 1;
+        max-width: 320px;
+        text-align: center;
+    }
+    .artist-image-wrapper {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        margin: 0 auto 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 0 25px #fff4;
+        background-color: #111;
+    }
+    .artist-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    /* --- End Artist Styles --- */
+
+    /* === Highlight Section Style === */
+    #highlights {
+      background-image: linear-gradient(rgba(16, 16, 16, 0.7), rgba(16, 16, 16, 0.7)), url('https://i.pinimg.com/736x/c6/5a/14/c65a1449228175c1714b73cdc185007f.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    #highlights li {
+        text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    }
+    /* === End Highlight Section Style === */
+
+    #venue {
+      background-image: linear-gradient(rgba(16, 16, 16, 0.7), rgba(16, 16, 16, 0.7)), url('https://i.pinimg.com/1200x/2a/11/38/2a11383d35428473c6f43a13b4b1f9b8.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    #venue li, #venue p {
+      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+    }
+    
+    .sections-container {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .sections-text {
+      flex: 1.2; /* Give text a bit more space */
+      text-align: left;
+    }
+    .sections-text ul {
+        display: block; /* Override default inline-block for proper alignment */
+        padding: 0;
+    }
+    .sections-image {
+      flex: 1;
+      min-width: 40%;
+    }
+    .sections-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius);
+      border: 1.2px solid #fff2;
+      box-shadow: 0 0 25px #fff3;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .sections-image img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 35px #fff5;
+    }
+    
+    /* MODAL STYLES START HERE */
+    .modal {
+        display: none; 
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.92);
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.4s;
+    }
+    .modal-content {
+        display: block;
+        margin: auto;
+        max-width: 90%;
+        max-height: 85vh;
+        border-radius: var(--radius);
+        border: 2px solid #fff3;
+        animation: zoomIn 0.4s;
+    }
+    .close-button {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 45px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+        text-shadow: 0 0 10px #000;
+    }
+    .close-button:hover,
+    .close-button:focus {
+        color: #bbb;
+        text-decoration: none;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0}
+        to {opacity: 1}
+    }
+    @keyframes zoomIn {
+        from {transform: scale(0.8)}
+        to {transform: scale(1)}
+    }
+    /* MODAL STYLES END HERE */
+    
+    .social-links {
+      margin: 1.7em 0 1em 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.35em;
+      justify-content: center;
+    }
+    .social-link {
+      background: #111;
+      padding: 0.8em 2em;
+      border-radius: 34px;
+      border: 1.3px solid #fff;
+      color: #fff !important;
+      font-size: 1.13rem;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85em;
+      box-shadow: 0 0 8px #fff2;
+      transition: background 0.21s, color 0.15s;
+    }
+    .social-link:hover {
+      background: #fff;
+      color: #000 !important;
+    }
+    .faq-item {
+      margin-bottom: 1.1em;
+      padding: 1.1em 1em 1.18em 1em;
+      background: #191919;
+      border-radius: 0.77em;
+      border-left: 3px solid #fff;
+      font-size: 1.06em;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .raffle-section {
+      background: #181818;
+      border-radius: 1em;
+      box-shadow: 0 0 30px #fff2;
+      color: #fff;
+      border: 1.2px solid #fff2;
+      max-width: 410px;
+      margin: 2em auto 1.2em auto;
+      text-align: left;
+      padding: 2em 1.2em 1.4em 1.2em;
+    }
+    .raffle-section label {
+      font-weight: 700;
+      margin-top: .82em;
+      display: block;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.07em;
+      letter-spacing: .025em;
+    }
+    .raffle-section input[type="email"], .raffle-section input[type="text"] {
+      width: 98%;
+      font-size: 1.06em;
+      padding: .68em 1em;
+      border-radius: 7px;
+      border: 1.2px solid #fff;
+      margin-bottom: .8em;
+      margin-top: .24em;
+      background: #121212;
+      color: #fff;
+      outline: none;
+      transition: background .12s, border .11s;
+      font-family: inherit;
+      letter-spacing: .01em;
+      display: block;
+    }
+    .raffle-section input:focus { background: #000; border-color: var(--accent);}
+    .raffle-section button[type="submit"] {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      padding: .92em 0;
+      border-radius: 21px;
+      border: none;
+      font-size: 1.11em;
+      font-weight: 900;
+      margin-top: .07em;
+      box-shadow: 0 0 13px #fff2;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      font-family: 'Orbitron', 'Rajdhani', Arial, sans-serif;
+      transition: background 0.15s, color 0.15s;
+    }
+    .raffle-section button[type="submit"]:hover {
+      background: #000;
+      color: #fff;
+      border: 1.1px solid #fff;
+      box-shadow: 0 0 16px #fff4;
+    }
+    .raffle-section small {
+      display: block;
+      margin-top: .7em;
+      color: #dedede;
+      font-size: .96em;
+      opacity: 0.93;
+      text-align: center;
+    }
+    #tickets {
+      text-align: center;
+      background: #151515;
+      border: 1.5px solid #fff3;
+      box-shadow: 0 0 20px #fff1;
+      max-width: 750px;
+      margin: 2.5rem auto 2rem auto;
+      border-radius: 28px;
+      padding: 2.3rem 2rem 2rem 2rem;
+      position: relative;
+    }
+    #tickets h2 {
+      margin-bottom: 0.7em;
+      margin-top: 0;
+    }
+    .book-btn {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.19em;
+      font-weight: 900;
+      padding: 1.07em 2.2em;
+      border-radius: 29px;
+      text-decoration: none;
+      border: 2px solid #fff;
+      box-shadow: 0 0 19px #fff3;
+      transition: background 0.17s, color 0.17s;
+      margin-top: 1em;
+      margin-bottom: 0.2em;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+    .book-btn:hover {
+      background: #000;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+    @media (max-width: 900px){
+      section { max-width:98vw; padding: 1.3rem .5rem;}
+      .main-title { font-size: clamp(2.7rem,9vw,5.6rem);}
+      .raffle-section, #tickets {max-width:99vw; padding:1em 3vw;}
+      nav a {margin: 0 0.42rem;}
+      .faq-item {max-width:96vw;}
+    }
+    @media (max-width: 768px) {
+        .artist-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .sections-container {
+            flex-direction: column;
+        }
+        .sections-text {
+            text-align: center;
+        }
+        .sections-text ul {
+            display: inline-block; /* Revert for centered text alignment */
+            text-align: left;
+        }
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#tickets">Book</a>
+    <a href="#welcome">Experience</a>
+    <a href="#highlights">Highlights</a>
+    <a href="#artists">Artists</a>
+    <a href="#venue">Venue</a>
+    <a href="#sections">Sections</a>
+    <a href="#updates">Updates</a>
+    <a href="#socials">Socials</a>
+    <a href="#raffle">Raffle</a>
+    <a href="#faq">FAQ</a>
+    <a href="#tips">Tips</a>
+  </nav>
+
+  <header class="hero-section">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="utopia_background.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content">
+      <h1 class="main-title">UTOPIA</h1>
+      <div class="subtitle">
+        Travis Scott India Tour • October 18–19, 2025<br/>Jawaharlal Nehru Stadium, New Delhi
+      </div>
+      <div id="countdown-timer">(Countdown loading...)</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="tickets">
+      <h2>Book Your Tickets</h2>
+      <p style="font-size:1.15em; margin-bottom:2em;">Secure your spot at <strong>UTOPIA</strong> before it sells out!</p>
+      <a href="https://in.bookmyshow.com" target="_blank" class="book-btn">Book Now</a>
+    </section>
+
+    <section id="welcome">
+      <h2>Welcome To The Experience</h2>
+      <p>
+        Enter UTOPIA: where global music culture and Indian energy collide. Travis Scott elevates India's concert scene with a show that's immersive, genre-smashing, and historic. With AP Dhillon joining for an only-in-India back-to-back set, this is where boundaries between artist and crowd, hip hop and desi, all come down.
+      </p>
+    </section>
+    <section id="highlights">
+      <h2>Event Highlights</h2>
+      <ul>
+        <li><span class="highlight">360° Dome Stage</span> places fans and artist in the round—no bad seat, no missed moment.</li>
+        <li><b>Wild Crowd Rituals:</b> Chants, synced phone lights, epic mosh zones—the crowd is part of the performance.</li>
+        <li><b>Exclusive Premieres:</b> Setlist leaks tease "Hot Sauce" debut and Travis/AP collab.</li>
+        <li><b>Stadium-Scale Visuals:</b> Massive dome projections, custom light shows, and festival-level effects.</li>
+        <li><b>Festival Within:</b> Merch, food, pop-up art zones, and crowd meetups create a culture festival vibe.</li>
+      </ul>
+      <span class="highlight">Doors open at 5:00 PM. Arrive early—pre-show experiences kick off as soon as you enter!</span>
+    </section>
+    
+    <section id="artists">
+      <h2>The Artists</h2>
+      <div class="artist-container">
+          <div class="artist-profile">
+              <div class="artist-image-wrapper">
+                  <img src="https://imageio.forbes.com/specials-images/imageserve/5ed670179e384f0007b7db8f/0x0.jpg?format=jpg&crop=2610,2609,x1032,y186,safe&height=416&width=416&fit=bounds" alt="Portrait of Travis Scott" class="artist-image" onerror="this.onerror=null;this.src='https://placehold.co/180x180/111111/FFFFFF?text=Image';">
+              </div>
+              <h3>Travis Scott</h3>
+              <p>
+                Futurist, innovator, and performer—Travis drops you inside his own sonic universe. If you know him from <i>Astroworld</i> or <i>UTOPIA</i>, expect the same scale and intensity, with India as the next legendary location.
+              </p>
+          </div>
+          <div class="artist-profile">
+              <div class="artist-image-wrapper">
+                  <img src="https://pearlentertainment.in/wp-content/uploads/classified-listing/2024/09/AP.Dhillon1.jpg" alt="Portrait of AP Dhillon" class="artist-image" onerror="this.onerror=null;this.src='https://placehold.co/180x180/111111/FFFFFF?text=Image';">
+              </div>
+              <h3>AP Dhillon</h3>
+              <p>
+                Punjabi, UK, trap, and R&B—AP makes music for the new India. His global reach, genre-defying sound, and high-voltage stage presence bring a local twist to an international show.
+              </p>
+          </div>
+      </div>
+      <h3>Collab Set</h3>
+      <p>
+        One night only—Travis and AP Dhillon join forces for a set that can't be repeated. It's not just a concert; it's a world premiere happening in Delhi first.
+      </p>
+    </section>
+
+    <section id="venue">
+      <h2>Venue & Crowd Guide</h2>
+      <ul>
+        <li><b>Jawaharlal Nehru Stadium:</b> India's concert HQ, metro-connected and ready for tens of thousands of fans.</li>
+        <li><b>Entry:</b> Gates open at 5 PM—get there early for smooth security, food, and a great spot.</li>
+        <li><b>Amenities Everywhere:</b> Water filling, food courts, chargers, official merch, medical, fan art, and chill zones are all within reach.</li>
+        <li><b>Fan Community:</b> Meetups, content walls, ride-shares, afterparty plans: UTOPIA is a city for one night.</li>
+        <li><b>Security + Access:</b> Absolutely safe for all fans; capacity for different needs and abilities; staff ready to help.</li>
+      </ul>
+      <p>
+        <span class="highlight">Bring digital ticket + ID. Minimal bag policy for everyone's safety and speed at gates.</span>
+      </p>
+    </section>
+    <section id="sections">
+      <h2>Stadium Sections</h2>
+      <div class="sections-container">
+        <div class="sections-text">
+          <ul>
+            <li><b>UTOPIA LOUNGE (₹15,000):</b> Exclusive VIP areas on the left and right with the best views.</li>
+            <li><b>CACTUS CLUB (₹25,000):</b> Premium seated area (A12-A17) right in front of the action.</li>
+            <li><b>ASTRO PASS (₹7,500):</b> The main floor area, putting you in the heart of the crowd.</li>
+            <li><b>GENERAL RAGE (₹5,000):</b> All-access floor for the up-close crowd vibe.</li>
+            <li><b>SEATED STANDS (₹3,500 - ₹10,000):</b> Various tiered seating options with clear views of the stage.</li>
+          </ul>
+        </div>
+        <div class="sections-image">
+          <img id="stadium-image-trigger" src="stadium-layout.jpg" alt="Stadium layout for UTOPIA concert">
+        </div>
+      </div>
+    </section>
+    <section id="updates">
+      <h2>Latest Updates</h2>
+      <ul>
+        <li>Travis and the UTOPIA crew have arrived and begun dome rehearsals!</li>
+        <li>Closed soundcheck confirms: "Telekinesis," "My Eyes," and "Hot Sauce" are on deck.</li>
+        <li>India-first visuals: check Insta and X for artist sneak peeks.</li>
+        <li>Surprise announcements, fan features, and aftermovie shoots planned all weekend!</li>
+      </ul>
+    </section>
+    <section id="socials">
+      <h2>Connect & Share</h2>
+      <div class="social-links">
+        <a class="social-link" href="https://www.instagram.com/travisscott" target="_blank">📷 Instagram</a>
+        <a class="social-link" href="https://twitter.com/trvisXX" target="_blank">🐦 Twitter</a>
+        <a class="social-link" href="https://www.youtube.com/@travisscott" target="_blank">▶ YouTube</a>
+      </div>
+      <p>
+        Post to <b>#UTOPIAIndia</b>—fans are featured live on screens and stories! Watch main socials for last-minute drops, giveaways, and guest reveals.
+      </p>
+    </section>
+    <section id="raffle">
+      <h2>UTOPIA Raffle</h2>
+      <div class="raffle-section">
+        <form id="raffleForm" autocomplete="off" novalidate>
+          <label for="raffle-gmail">Your Gmail (required):</label>
+          <input type="email" id="raffle-gmail" name="raffle-gmail" required placeholder="yourname@gmail.com">
+          <label for="raffle-upi">Payment Ref ID (₹100/entry):</label>
+          <input type="text" id="raffle-upi" name="raffle-upi" required placeholder="UPI or QR Reference">
+          <button type="submit">Enter Raffle</button>
+          <small id="raffle-response"></small>
+        </form>
+      </div>
+      <ul>
+        <li>Win exclusive merch, VIP upgrades, tickets, backstage passes & more!</li>
+        <li>Multiple entries allowed—boost your odds! Winners emailed 7 days before the concert.</li>
+        <li>Prize pickup and winner boards in the lounge/merch lobby at the.</li>
+      </ul>
+    </section>
+    <section id="faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <b>What time does the concert start?</b>
+        <div>Gates 5 PM, acts begin by 7 PM, finale after 11 PM. Don't miss the pre-show energy.</div>
+      </div>
+      <div class="faq-item">
+        <b>Can I bring bags or cameras?</b>
+        <div>Small sling/crossbody bags are fine. No large backpacks, professional cameras, or outside food/drink.</div>
+      </div>
+      <div class="faq-item">
+        <b>Is this for all ages?</b>
+        <div>Yes! Under 16? Be with an adult. Event teams everywhere—ask for help anytime.</div>
+      </div>
+      <div class="faq-item">
+        <b>How do I get there?</b>
+        <div>Metro to JLN Stadium, minimal public parking—Uber/Ola best for a smooth experience.</div>
+      </div>
+      <div class="faq-item">
+        <b>Can I leave and re-enter?</b>
+        <div>No re-entry allowed. Prep and coordinate before getting in—no FOMO!</div>
+      </div>
+    </section>
+    <section id="tips">
+      <h2>Quick Tips</h2>
+      <ul>
+        <li>Charge your phone, bring a power bank if possible.</li>
+        <li>Download tickets and a valid ID.</li>
+        <li>Plan meeting spots—networks can be iffy with a big crowd.</li>
+        <li>Hydrate! Water points everywhere, reusable bottles allowed.</li>
+        <li>Be legendary—make memories, respect the community, and rage smart!</li>
+      </ul>
+      <p>
+        <span class="highlight">This is UTOPIA. India's new standard for live music.</span>
+      </p>
+    </section>
+  </main>
+
+  <div id="imageModal" class="modal">
+    <span class="close-button">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+  <script>
+    function updateCountdown(){
+      var cd = document.getElementById("countdown-timer");
+      var eventDate = new Date("2025-10-18T17:00:00+05:30").getTime();
+      var now = new Date().getTime();
+      var diff = eventDate - now;
+      if(diff < 0){
+        cd.innerText = "IT'S UTOPIA TIME.";
+        return;
+      }
+      var days = Math.floor(diff/(1000*60*60*24));
+      var hrs = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+      var mins = Math.floor((diff%(1000*60*60))/(1000*60));
+      cd.innerText = `${days}d ${hrs}h ${mins}m left`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown,60000);
+
+    document.getElementById("raffleForm").onsubmit = function(e){
+      e.preventDefault();
+      var small = document.getElementById("raffle-response");
+      var email = document.getElementById("raffle-gmail").value, upi = document.getElementById("raffle-upi").value;
+      if(!email || !upi) {
+        small.innerText = "Please fill all fields.";
+        small.style.color = "#ff1133";
+        return;
+      }
+      small.style.color = "#fff";
+      small.innerText = "Entry submitted! Check your inbox for UTOPIA winner news.";
+      document.getElementById("raffleForm").reset();
+    }
+
+    // Navbar active state on scroll
+    const navLinks = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', () => {
+      let fromTop = window.scrollY + 80;
+      navLinks.forEach(link => {
+        const section = document.querySelector(link.getAttribute('href'));
+        if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById("imageModal");
+    const triggerImage = document.getElementById("stadium-image-trigger");
+    const modalImg = document.getElementById("modalImage");
+    const closeBtn = document.querySelector(".close-button");
+
+    triggerImage.onclick = function(){
+      modal.style.display = "flex";
+      modalImg.src = this.src;
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // Close modal when clicking on the background
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
